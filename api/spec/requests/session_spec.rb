@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Session endpoints', type: :request do
+RSpec.describe 'Session', type: :request do
   let(:user) { FactoryBot.create(:user) }
   let(:sign_in_url) { '/api/auth/sign_in' }
   let(:sign_out_url) { '/api/auth/sign_out' }

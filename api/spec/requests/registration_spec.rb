@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Registration endpoints', type: :request do
+RSpec.describe 'Registration', type: :request do
   let(:sign_up_url) { '/api/auth' }
   let(:email) { 'employee@gainimpact.nl' }
   let(:password) { 'Str0ngP@$$w0rd' }
