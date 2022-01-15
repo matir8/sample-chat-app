@@ -10,6 +10,14 @@ class UserRepository
     User.where(table[:name].matches(query)).or(User.where(table[:nickname].matches(query)))
   end
 
+  def find_by_email(email:)
+    User.find_by(email: email)
+  end
+
+  def find_by_id(id:)
+    User.find_by(id: id)
+  end
+
   private
 
   def sanitize_like_query(query)

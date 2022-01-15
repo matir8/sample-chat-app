@@ -7,13 +7,20 @@ RSpec.describe 'Registration', type: :request do
   let(:email) { 'employee@gainimpact.nl' }
   let(:password) { 'Str0ngP@$$w0rd' }
   let(:password_confirmation) { 'Str0ngP@$$w0rd' }
+  let(:name) { 'John Doe' }
+  let(:nickname) { 'j.doe' }
+  let(:image) { 'https://picsum.photos/id/237/200/300' }
   let(:params) do
     {
       email: email,
       password: password,
-      password_confirmation: password_confirmation
+      password_confirmation: password_confirmation,
+      name: name,
+      nickname: nickname,
+      image: image
     }
   end
+  let(:data) { JSON.parse(response.body)['data'] }
 
   describe 'Email registration method' do
     describe 'POST /api/auth/' do
@@ -44,6 +51,22 @@ RSpec.describe 'Registration', type: :request do
           parsed_response = JSON.parse(response.body)
 
           expect(parsed_response['status']).to eq('success')
+        end
+
+        it 'returns the email' do
+          expect(data['email']).to eq 'employee@gainimpact.nl'
+        end
+
+        it 'returns the name' do
+          expect(data['name']).to eq 'John Doe'
+        end
+
+        it 'returns the nickname' do
+          expect(data['nickname']).to eq 'j.doe'
+        end
+
+        it 'returns the image' do
+          expect(data['image']).to eq 'https://picsum.photos/id/237/200/300'
         end
 
         it 'creates new user' do
