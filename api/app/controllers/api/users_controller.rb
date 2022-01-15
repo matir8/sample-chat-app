@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
-class Api::UsersController < ApplicationController
-  before_action :authenticate_api_user!
+module Api
+  class UsersController < ApplicationController
+    before_action :authenticate_api_user!
 
-  def index
-    query = params[:search]
+    def index
+      query = prepared_params[:search]
 
-    render json: UserSerializer.new(repository.get_all(query: query))
-  end
+      render json: UserSerializer.new(repository.get_all(query: query))
+    end
 
-  private
+    private
 
-  def repository
-    @repository ||= UserRepository.new
+    def repository
+      @repository ||= UserRepository.new
+    end
+
+    def prepared_params
+      params.permit(:search)
+    end
   end
 end

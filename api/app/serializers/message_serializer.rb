@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-class UserSerializer
+class MessageSerializer
   include JSONAPI::Serializer
 
-  attributes :name, :nickname, :image
+  attributes :content
+
+  belongs_to :user
 end

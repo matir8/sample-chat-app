@@ -9,6 +9,6 @@ class MessageRepository
     Message.where(conversation_id: conversation_id)
            .order(created_at: :desc)
            .limit(page_size)
-           .offset((page_number - 1) * 10)
+           .offset((page_number - 1) * page_size)
   end
 end
