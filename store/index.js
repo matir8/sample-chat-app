@@ -69,7 +69,10 @@ export const getters = {
   },
   isSelectedUser: (state) => (userId) => {
     if (!state.selectedConversation?.users) return false;
+    if (state.selectedConversation.users.length === 1) {
+      return userId === state.auth.user.id
+    }
 
-    return state.selectedConversation.users.some(u => u.id === userId)
+    return state.selectedConversation.users.some(u => u.id === userId && userId !== state.auth.user.id)
   }
 }
