@@ -3,7 +3,7 @@
     <b-col offset-md="1" md="10" class="mt-3">
       <h3 class="text-center">Sign up</h3>
 
-      <Notification v-if="error" :message="error" class="mb-4 pb-3" />
+      <Notification v-if="errors" :messages="errors" class="mb-4 pb-3" />
 
       <b-form @submit.prevent="signup">
         <b-form-group label="Name">
@@ -75,7 +75,7 @@ export default {
       email: '',
       password: '',
       password_confirmation: '',
-      error: null,
+      errors: null,
     }
   },
   methods: {
@@ -96,7 +96,7 @@ export default {
           },
         })
       } catch (e) {
-        this.error = e.response.data.errors.full_messages
+        this.errors = e.response.data.errors.full_messages
       }
     },
   },
