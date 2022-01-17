@@ -5,14 +5,14 @@
         <b-jumbotron v-if="!$auth.loggedIn" md="6" offset-md="3" class="pb-5">
           <template #header>Sample chat app</template>
           <div >
-            <h2>Sign in to start chatting with your friends.</h2>
+            <h2>Log in to start chatting with your friends.</h2>
           </div>
           <hr class="my-4" />
           <b-button v-if="!$auth.loggedIn" variant="primary" to="/signup">
             Sign up
           </b-button>
           <b-button v-if="!$auth.loggedIn" variant="info" to="/login">
-            Sign in
+            Log in
           </b-button>
         </b-jumbotron>
         <b-row v-else>
