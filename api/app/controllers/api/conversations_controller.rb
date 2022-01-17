@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../services/conversations/find_or_create'
-
 module Api
   class ConversationsController < ApplicationController
     before_action :authenticate_api_user!
@@ -16,7 +14,7 @@ module Api
       return render_error unless recipient.present?
 
       conversation =
-        Services::Conversations::FindOrCreate.new(participant_ids: participant_ids, repo: conversation_repository).call
+        Conversations::FindOrCreate.new(participant_ids: participant_ids, repo: conversation_repository).call
 
       render json: ConversationSerializer.new(conversation, { include: [:users] })
     end

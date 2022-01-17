@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../services/messages/create'
-
 class ConversationChannel < ActionCable::Channel::Base
   def subscribed
     return unless conversation_id.present?
@@ -22,7 +20,7 @@ class ConversationChannel < ActionCable::Channel::Base
       content: content
     }
 
-    Services::Messages::Create.new(attributes).call
+    Messages::Create.new(attributes).call
   end
 
   private
