@@ -67,6 +67,6 @@ export default {
 <style scoped>
   .list-group-item:hover {
     cursor: pointer;
-    font-weight: bold;
+    background-color: #D4D4D4;
   }
 </style>

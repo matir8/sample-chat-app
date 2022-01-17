@@ -16,15 +16,15 @@
           </b-button>
         </b-jumbotron>
         <b-row v-else>
-          <b-col lg="4" xl="3" class="d-xl-block d-md-none">
+          <b-col sm="12" md="3" xl="3">
             <h4>Users</h4>
             <user-list />
           </b-col>
-          <b-col sm="4" md="4" xl="3">
+          <b-col md="3" xl="3" class="d-sm-none d-md-block">
             <h4>Conversations</h4>
             <conversation-list />
           </b-col>
-          <b-col sm="8" md="8" xl="6">
+          <b-col sm="12" md="6" xl="6" >
             <h4>Messages</h4>
             <messages-list />
           </b-col>
@@ -55,9 +55,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  #root {
-    height: 100vh;
-  }
-</style>

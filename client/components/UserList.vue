@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form-input placeholder="Search for a user" @input="onSearch" />
+    <b-form-input class ="mb-2" placeholder="Search for a user" @input="onSearch" />
     <b-list-group>
       <b-list-group-item
         v-for="user in users"
@@ -74,6 +74,6 @@ export default {
 <style scoped>
   .list-group-item:hover {
     cursor: pointer;
-    font-weight: bold;
+    background-color: #D4D4D4;
   }
 </style>

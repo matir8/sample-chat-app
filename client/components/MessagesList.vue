@@ -23,7 +23,7 @@
     </b-row>
     <b-row no-gutters>
       <b-form class="w-100" autocomplete="off" @submit="sendMessage">
-        <b-form-input v-model="newMessage" placeholder="Enter a message" />
+        <b-form-input v-model="content" placeholder="Enter a message" />
       </b-form>
     </b-row>
   </b-container>
@@ -37,16 +37,19 @@ export default {
 
   data() {
     return {
-      newMessage: '',
+      content: '',
     }
   },
 
   channels: {
     ConversationChannel: {
       async received({ data }) {
+        const container = this.$el.querySelector('#chat-box')
+        const scrolledToBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 1
+        
         await this.appendMessage(data)
 
-        if (this.isAuthorMessage(data)) {
+        if (this.isAuthorMessage(data) || scrolledToBottom) {
           this.scrollToBottom()
         }
       },
@@ -86,15 +89,17 @@ export default {
     sendMessage(event) {
       event.preventDefault()
 
+      if (!this.content.trim()) return
+
       this.$cable.perform({
         channel: 'ConversationChannel',
         action: 'send_message',
         data: {
-          message: this.newMessage,
+          message: this.content.trim(),
         },
       })
 
-      this.newMessage = ''
+      this.content = ''
     },
 
     async loadMessages() {
@@ -120,9 +125,7 @@ export default {
 
 <style scoped>
 #chat-box {
-  width: 100%;
-  height: 80vh;
-  position: relative;
+  height: 70vh;
   overflow-x: hidden;
   overflow-y: scroll;
   margin-bottom: 10px;

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Navbar style="max-height: 5vh"/>
-    <Nuxt style="height: 95vh"/>
+    <Navbar />
+    <Nuxt />
   </div>
 </template>
 
