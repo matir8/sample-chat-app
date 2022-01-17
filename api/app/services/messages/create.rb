@@ -16,7 +16,7 @@ module Services
 
         message = MessageRepository.new.create!(conversation_id: conversation.id, user_id: user.id, content: content)
 
-        ActionCable.server.broadcast(conversation.id, message)
+        ActionCable.server.broadcast(conversation.id, MessageSerializer.new(message))
       end
 
       private

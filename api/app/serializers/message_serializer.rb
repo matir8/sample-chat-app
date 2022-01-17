@@ -3,7 +3,7 @@
 class MessageSerializer
   include JSONAPI::Serializer
 
-  attributes :content
+  attributes :content, :created_at
 
   belongs_to :user
 end
