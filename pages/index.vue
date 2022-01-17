@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid>
+  <b-container id="root" fluid>
     <b-row>
       <b-col class="mt-3">
         <b-jumbotron v-if="!$auth.loggedIn" md="6" offset-md="3" class="pb-5">
@@ -17,13 +17,16 @@
         </b-jumbotron>
         <b-row v-else>
           <b-col lg="4" xl="3" class="d-xl-block d-md-none">
+            <h4>Users</h4>
             <user-list />
           </b-col>
           <b-col sm="4" md="4" xl="3">
+            <h4>Conversations</h4>
             <conversation-list />
           </b-col>
           <b-col sm="8" md="8" xl="6">
-            <!-- <user-list /> -->
+            <h4>Messages</h4>
+            <messages-list />
           </b-col>
         </b-row>
       </b-col>
@@ -32,21 +35,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ConversationList from '~/components/ConversationList.vue'
+import MessagesList from '~/components/MessagesList.vue'
 import UserList from '~/components/UserList.vue'
+
 export default {
   name: 'IndexPage',
-  components: { UserList, ConversationList },
+  components: { UserList, ConversationList, MessagesList },
   computed: {
-    accessToken() {
-      return this.$auth.$storage.getState('access-token')
-    },
-    client() {
-      return this.$auth.$storage.getState('client')
-    },
-    uid() {
-      return this.$auth.$storage.getState("uid")
-    }
+    ...mapGetters(['accessToken', 'client', 'uid'])
   },
   mounted() {
     if (this.$auth.loggedIn) {
@@ -58,4 +56,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+  #root {
+    height: 100vh;
+  }
+</style>

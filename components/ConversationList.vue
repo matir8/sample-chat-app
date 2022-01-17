@@ -5,7 +5,7 @@
         v-for="conversation in conversations"
         :key="conversation.id"
         class="d-flex align-items-center"
-        :class="{ 'bg-secondary': isSelectedConversation(conversation) }"
+        :class="{ 'bg-info': isSelectedConversation(conversation) }"
         @click="select(conversation)"
       >
         <span class="mr-auto">
@@ -38,7 +38,7 @@ export default {
     ...mapActions(['getConversations', 'selectConversation']),
     getUser(conversation) {
       return (
-        conversation.users.find(u => u.id !== this.$auth.user.id) ||
+        conversation.users.find((u) => u.id !== this.$auth.user.id) ||
         this.$auth.user
       )
     },
@@ -50,7 +50,23 @@ export default {
     },
     async select(conversation) {
       await this.selectConversation(this.getUser(conversation).id)
+
+      if (this.selectedConversation) {
+        this.$cable.unsubscribe("ConversationChannel");
+      }
+      
+      this.$cable.subscribe({
+        channel: "ConversationChannel",
+        conversation_id: conversation.id,
+      })
     },
   },
 }
 </script>
+
+<style scoped>
+  .list-group-item:hover {
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>

@@ -6,8 +6,8 @@
         v-for="user in users"
         :key="user.id"
         class="d-flex align-items-center"
-        :class="{ 'bg-secondary': isSelectedUser(user.id) }"
-        @click="selectConversation(user.id)"
+        :class="{ 'bg-info': isSelectedUser(user.id) }"
+        @click="selectUser(user.id)"
       >
         <b-avatar class="mr-3" :src="user.attributes.image"></b-avatar>
         <span class="mr-auto">
@@ -23,21 +23,26 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'UserList',
+  
   data() {
     return {
       query: '',
       debounce: null,
     }
   },
+  
   computed: {
-    ...mapState(['users']),
+    ...mapState(['users', 'selectedConversation']),
     ...mapGetters(['isSelectedUser']),
   },
+  
   async mounted() {
     await this.search()
   },
+  
   methods: {
     ...mapActions(['getUsers', 'selectConversation']),
+    
     onSearch(query) {
       clearTimeout(this.debounce)
 
@@ -45,9 +50,30 @@ export default {
         await this.search(query)
       }, 600)
     },
+    
     async search(query = null) {
       await this.getUsers(query)
+    },
+
+    async selectUser(userId) {
+      await this.selectConversation(userId)
+
+      if (this.selectedConversation) {
+        this.$cable.unsubscribe('ConversationChannel')
+      }
+
+      this.$cable.subscribe({
+        channel: 'ConversationChannel',
+        conversation_id: this.selectedConversation.id,
+      })
     },
   },
 }
 </script>
+
+<style scoped>
+  .list-group-item:hover {
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>
