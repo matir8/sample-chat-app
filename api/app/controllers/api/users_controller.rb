@@ -10,6 +10,10 @@ module Api
       render json: UserSerializer.new(repository.get_all(query: query))
     end
 
+    def show
+      render json: UserSerializer.new(current_api_user)
+    end
+
     private
 
     def repository
