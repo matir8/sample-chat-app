@@ -9,7 +9,7 @@ module Api
     def index
       conversations = conversation_repository.all_for_user(user_id: current_api_user.id)
 
-      render json: ConversationSerializer.new(conversations)
+      render json: ConversationSerializer.new(conversations, { include: [:users] })
     end
 
     def create
@@ -18,7 +18,7 @@ module Api
       conversation =
         Services::Conversations::FindOrCreate.new(participant_ids: participant_ids, repo: conversation_repository).call
 
-      render json: ConversationSerializer.new(conversation)
+      render json: ConversationSerializer.new(conversation, { include: [:users] })
     end
 
     private

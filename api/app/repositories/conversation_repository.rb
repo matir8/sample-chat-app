@@ -14,4 +14,8 @@ class ConversationRepository
   def create!(user_ids:)
     Conversation.create!(users: User.where(id: user_ids))
   end
+
+  def all_for_user(user_id:)
+    Conversation.joins(:users).where(users: { id: [user_id] })
+  end
 end
