@@ -23,7 +23,7 @@ export default {
   env: {
     backendDomain: process.env.BACKEND_DOMAIN || 'localhost:3000',
     backednScheme: process.env.BACKEND_SCHEME || 'http',
-    chatUrl: `ws://${process.env.BACKEND_DOMAIN}/chat`
+    chatUrl: `${process.env.WEBSOCKET_SCHEME}://${process.env.BACKEND_DOMAIN}/chat`
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
