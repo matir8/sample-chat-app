@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'client',
+    title: 'Sample Chat App',
     htmlAttrs: {
       lang: 'en',
     },
@@ -48,7 +48,7 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',,
+    '@nuxtjs/axios',
     '@nuxtjs/auth-next'
   ],
 
