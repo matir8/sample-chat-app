@@ -3,8 +3,7 @@ import ActionCableVue from "actioncable-vue"
 
 if (process.client) {
   Vue.use(ActionCableVue, {
-    debug: true,
-    debugLevel: "all",
+    debug: false,
     connectionUrl: `ws://${process.env.backendDomain}/chat`,
     connectImmediately: false,
   })
